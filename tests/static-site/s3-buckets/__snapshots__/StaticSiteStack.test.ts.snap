@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StaticSiteStack should match the template snapshot 1`] = `
+"Resources:
+  OriginAccessIdentity:
+    Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: Cloud front user which will be allowed to access the site s3 bucket
+  StaticSiteBucket8958EE3F:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+  StaticSiteBucketPolicy54AA1C72:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket:
+        Ref: StaticSiteBucket8958EE3F
+      PolicyDocument:
+        Statement:
+          - Action: 's3:GetObject'
+            Effect: Allow
+            Principal:
+              CanonicalUser:
+                'Fn::GetAtt':
+                  - OriginAccessIdentity
+                  - S3CanonicalUserId
+            Resource:
+              'Fn::Join':
+                - ''
+                - - 'Fn::GetAtt':
+                      - StaticSiteBucket8958EE3F
+                      - Arn
+                  - /*
+        Version: '2012-10-17'
+  LogsBucket9C4D8843:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+  staticsitecloudfrontCFDistributionF34126D3:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties:
+      DistributionConfig:
+        CacheBehaviors: []
+        Comment: Cloud front distribution for static website
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          ForwardedValues:
+            Cookies:
+              Forward: none
+            QueryString: false
+          TargetOriginId: origin1
+          ViewerProtocolPolicy: redirect-to-https
+        DefaultRootObject: index.html
+        Enabled: true
+        HttpVersion: http2
+        IPV6Enabled: true
+        Logging:
+          Bucket:
+            'Fn::GetAtt':
+              - LogsBucket9C4D8843
+              - DomainName
+          IncludeCookies: false
+        Origins:
+          - DomainName:
+              'Fn::GetAtt':
+                - StaticSiteBucket8958EE3F
+                - DomainName
+            Id: origin1
+            S3OriginConfig:
+              OriginAccessIdentity:
+                'Fn::Join':
+                  - ''
+                  - - origin-access-identity/cloudfront/
+                    - Ref: OriginAccessIdentity
+        PriceClass: PriceClass_All
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
+Outputs:
+  DistributionDomainName:
+    Value:
+      'Fn::GetAtt':
+        - staticsitecloudfrontCFDistributionF34126D3
+        - DomainName
+"
+`;

@@ -1,0 +1,26 @@
+#CDK flow:
+- Create a typescript project
+- Create an App (extends cdk.App)
+- Create one or more stacks(children of App in CDK terms)
+- Each stack can have multiple resources like S3 bucket etc.
+- To get a list of stacks:
+    - `cdk ls -l`
+- To generate CFN template, use CDK toolkit command
+    - `cdk synth <stackName>`
+        - You’ll see the template as the output in terminal
+- To deploy your CDK app:
+    - `cdk deploy`
+        - This command invokes calls to Cloud formation service and creates/updates stacks using the default credentials & region in your machine
+        - Couldn’t see the template getting uploaded in an S3 bucket
+- To assume a role from the Sandbox account:
+    - We need to set some AWS environment variables to force CDK to use these env vars instead of the default profile from `~/.aws/credentials` or `~/.aws/config`
+    - Execute the following:
+        - `./assume-role.sh`
+            - You'll get most of the values required
+        - Update `export-vars.sh` file with the new values
+        - Source the `export-vars` script:
+            - `source ./export-vars.sh`
+                - All the required env vars should have been exported
+    - Now, all cdk commands would use the temporary credentials exported as env vars
+    - Execute cdk commands as you would normally.  
+- The scripts require a bit of manual work to copy values and paste them in `export-vars.sh`. Needs to be worked on so that we can source the `assume-role.sh` script and export the vars directly.

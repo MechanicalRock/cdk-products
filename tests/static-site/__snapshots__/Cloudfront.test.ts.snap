@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cloudfront should match the template snapshot 1`] = `
+"Resources:
+  MySiteBucket1481A238:
+    Type: 'AWS::S3::Bucket'
+  OriginAccessIdentity:
+    Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: Cloud front user which will be allowed to access the site s3 bucket
+  LogsBucket9C4D8843:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+  MyCloudfrontCFDistribution4F715D75:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties:
+      DistributionConfig:
+        CacheBehaviors: []
+        Comment: Cloud front distribution for static website
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          ForwardedValues:
+            Cookies:
+              Forward: none
+            QueryString: false
+          TargetOriginId: origin1
+          ViewerProtocolPolicy: redirect-to-https
+        DefaultRootObject: index.html
+        Enabled: true
+        HttpVersion: http2
+        IPV6Enabled: true
+        Logging:
+          Bucket:
+            'Fn::GetAtt':
+              - LogsBucket9C4D8843
+              - DomainName
+          IncludeCookies: false
+        Origins:
+          - DomainName:
+              'Fn::GetAtt':
+                - MySiteBucket1481A238
+                - DomainName
+            Id: origin1
+            S3OriginConfig:
+              OriginAccessIdentity:
+                'Fn::Join':
+                  - ''
+                  - - origin-access-identity/cloudfront/
+                    - Ref: OriginAccessIdentity
+        PriceClass: PriceClass_All
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
+Outputs:
+  DistributionDomainName:
+    Value:
+      'Fn::GetAtt':
+        - MyCloudfrontCFDistribution4F715D75
+        - DomainName
+"
+`;

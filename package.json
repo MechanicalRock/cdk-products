@@ -1,0 +1,40 @@
+{
+  "name": "cdk-products",
+  "private": true,
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "clean": "rm -rf .dist/",
+    "build": "npm run clean && tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "posttest": "npm run lint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "updateSnapshot": "jest -u",
+    "watch": "tsc -w"
+  },
+  "keywords": [],
+  "author": "Amit Sharma, amit.sharma@mechanicalrock.io",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-cdk/aws-cloudfront": "^0.15.2",
+    "@aws-cdk/aws-codecommit": "^0.15.2",
+    "@aws-cdk/aws-codebuild": "^0.15.2",
+    "@aws-cdk/aws-codepipeline": "^0.15.2",
+    "@aws-cdk/aws-iam": "^0.15.2",
+    "@aws-cdk/aws-s3": "^0.15.2",
+    "@aws-cdk/cdk": "^0.15.2",
+    "@types/node": "^10.12.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
+    "@types/jest": "^23.3.6",
+    "@types/uuid": "^3.4.4",
+    "fs-extra": "^7.0.0",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.4",
+    "ts-loader": "^5.3.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.3"
+  }
+}

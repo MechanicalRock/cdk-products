@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CodePipeline should match the template snapshot 1`] = `
+"Resources:
+  CodeRepoDC8A9D5F:
+    Type: 'AWS::CodeCommit::Repository'
+    Properties:
+      RepositoryName: code-repo
+      Triggers: []
+Outputs:
+  RepositoryHttpUrl:
+    Value:
+      'Fn::GetAtt':
+        - CodeRepoDC8A9D5F
+        - CloneUrlHttp
+"
+`;
