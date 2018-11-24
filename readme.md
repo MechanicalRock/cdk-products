@@ -14,13 +14,13 @@
         - Couldn’t see the template getting uploaded in an S3 bucket
 - To assume a role from the Sandbox account:
     - We need to set some AWS environment variables to force CDK to use these env vars instead of the default profile from `~/.aws/credentials` or `~/.aws/config`
+    - Pre-requisites:
+        - A role `role/AdminRole` exists in your sandbox account that can be assumed by your default credentials
+        - You've exported your sandbox account id with:
+            - `export AWS_ACCOUNT_ID=<Sandbox account id>`
     - Execute the following:
-        - `./assume-role.sh`
-            - You'll get most of the values required
-        - Update `export-vars.sh` file with the new values
-        - Source the `export-vars` script:
-            - `source ./export-vars.sh`
-                - All the required env vars should have been exported
+        - `source ./assume-role.sh`
+            - All the required env vars should have been exported
+            - Check by executing: `env | grep AWS`
     - Now, all cdk commands would use the temporary credentials exported as env vars
-    - Execute cdk commands as you would normally.  
-- The scripts require a bit of manual work to copy values and paste them in `export-vars.sh`. Needs to be worked on so that we can source the `assume-role.sh` script and export the vars directly.
+    - Execute cdk commands as you would normally.
