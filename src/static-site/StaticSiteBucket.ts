@@ -16,9 +16,6 @@ export class StaticSiteBucket {
         this.bucket = this.create();
     }
 
-    get = () => {
-        return this.bucket;
-    }
     private create = () => {
 
         const bucket = new s3.Bucket(this.props.stack, this.props.logicalName, {

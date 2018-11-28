@@ -23,7 +23,7 @@ export class StaticSiteStack extends cdk.Stack {
 
         new Cloudfront({
             stack: this,
-            siteBucket: siteBucket.get(),
+            siteBucket: siteBucket.bucket,
             logicalName: 'static-site-cloudfront',
             originAccessIdentity: originAccessIdentityResource
         })
