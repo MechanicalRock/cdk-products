@@ -3,6 +3,7 @@ import { Parameter } from '@aws-cdk/cdk';
 import { StaticSiteBucket } from './StaticSiteBucket';
 import { OriginAccessIdentity } from './OriginAccessIdentity';
 import { Cloudfront } from './Cloudfront';
+import { HostedZone } from './HostedZone';
 
 export class StaticSiteStack extends cdk.Stack {
     bucketParameter: Parameter;
@@ -27,5 +28,10 @@ export class StaticSiteStack extends cdk.Stack {
             logicalName: 'static-site-cloudfront',
             originAccessIdentity: originAccessIdentityResource
         })
+
+        new HostedZone({
+            stack: this,
+            fullyQualifiedDomainName: 'myexamplesite.com.au'
+        });
     }
 }
