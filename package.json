@@ -20,7 +20,7 @@
     "@aws-cdk/aws-cloudfront": "^0.15.2",
     "@aws-cdk/aws-codebuild": "^0.15.2",
     "@aws-cdk/aws-codecommit": "^0.15.2",
-    "@aws-cdk/aws-codepipeline": "^0.15.2",
+    "@aws-cdk/aws-codepipeline": "^0.39.0",
     "@aws-cdk/aws-iam": "^0.15.2",
     "@aws-cdk/aws-route53": "^0.15.2",
     "@aws-cdk/aws-s3": "^0.15.2",
